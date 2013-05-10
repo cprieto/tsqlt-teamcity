@@ -22,8 +22,14 @@ public class TSQLTBuildProcess implements BuildProcess {
 
         logger.activityStarted("tSQLt", DefaultMessagesInfo.BLOCK_TYPE_TEST_SUITE);
         logger.logSuiteStarted("Sample Suite");
-        logger.logTestFinished("Test passed");
-        logger.logTestFailed("Test failed", "Blah", "Stack trace");
+
+        logger.logTestStarted("Test 1");
+        logger.logTestFinished("Test 1");
+
+        logger.logTestStarted("Test 2");
+        logger.logTestFailed("Shit happens", "Yes", "but that is good");
+        logger.logTestFinished("Test 2");
+
         logger.logSuiteFinished("Sample Suite");
         logger.activityStarted("tSQLt", DefaultMessagesInfo.BLOCK_TYPE_TEST_SUITE);
 
