@@ -6,6 +6,7 @@
         <element id="artifact" artifact-name="tsqlt-common:jar" />
         <element id="archive" name="tsqlt-server.jar">
           <element id="module-output" name="server" />
+          <element id="javaee-facet-resources" facet="server/web/Web" />
         </element>
       </element>
       <element id="file-copy" path="$PROJECT_DIR$/server/teamcity-plugin.xml" />
