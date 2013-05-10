@@ -2,11 +2,16 @@ package org.tsqlt.runner.server;
 
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.serverSide.RunType;
+import jetbrains.buildServer.serverSide.RunTypeRegistry;
 import org.tsqlt.runner.common.PluginConstants;
 
 import java.util.Map;
 
 public class TSQLTRunType extends RunType {
+    public TSQLTRunType(final RunTypeRegistry registry) {
+        registry.registerRunType(this);
+    }
+
     @Override
     public String getType() {
         return PluginConstants.RUNNER_TYPE;
@@ -39,6 +44,6 @@ public class TSQLTRunType extends RunType {
 
     @Override
     public Map<String, String> getDefaultRunnerProperties() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 }
