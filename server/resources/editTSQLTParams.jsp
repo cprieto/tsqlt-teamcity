@@ -5,7 +5,7 @@
 
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 
-<l:settingsGroup title="tSQLt options">
+<l:settingsGroup title="tSQLt Database Options">
     <tr>
         <th>
             <label for="tsqlt.connection">JDBC Connection String: <span class="mandatoryAsterix" title="Mandatory field">*</span></label>
