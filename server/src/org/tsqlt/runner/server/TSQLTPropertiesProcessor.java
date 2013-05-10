@@ -17,7 +17,7 @@ public class TSQLTPropertiesProcessor implements PropertiesProcessor {
         if (hasProperty(properties, PropertyNames.CONNECTION_STRING) == false)
             invalidProperties.add(new InvalidProperty(
                     PropertyNames.CONNECTION_STRING,
-                    "You need to specify JDBC connection string"));
+                    "You need to specify a JDBC connection string"));
 
         return invalidProperties;
     }
