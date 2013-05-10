@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="Plugin">
+    <output-path>$PROJECT_DIR$/out/artifacts/Plugin</output-path>
+    <root id="root">
+      <element id="archive" name="tsqlt-runner.zip">
+        <element id="artifact" artifact-name="package" />
+      </element>
+    </root>
+  </artifact>
+</component>

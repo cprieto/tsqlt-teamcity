@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact name="package">
+    <output-path>$PROJECT_DIR$/out/artifacts/package</output-path>
+    <root id="root">
+      <element id="directory" name="server">
+        <element id="artifact" artifact-name="tsqlt-common:jar" />
+        <element id="archive" name="tsqlt-server.jar">
+          <element id="module-output" name="server" />
+        </element>
+      </element>
+      <element id="directory" name="agent">
+        <element id="archive" name="tsql-agent.zip">
+          <element id="file-copy" path="$PROJECT_DIR$/agent/teamcity-plugin.xml" />
+          <element id="archive" name="tsqlt-agent.jar">
+            <element id="module-output" name="agent" />
+          </element>
+          <element id="artifact" artifact-name="tsqlt-common:jar" />
+        </element>
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/server/teamcity-plugin.xml" />
+    </root>
+  </artifact>
+</component>
