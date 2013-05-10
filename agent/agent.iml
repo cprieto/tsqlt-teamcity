@@ -16,6 +16,8 @@
     </content>
     <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="TeamCity OpenAPI Common" level="project" />
+    <orderEntry type="library" name="TeamCity OpenAPI Agent" level="project" />
   </component>
 </module>
 
