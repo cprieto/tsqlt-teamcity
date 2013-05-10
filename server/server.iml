@@ -31,6 +31,15 @@
     <orderEntry type="library" name="TeamCity OpenAPI Common" level="project" />
     <orderEntry type="module" module-name="common" />
     <orderEntry type="library" name="TeamCity Spring libs" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/testng.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
