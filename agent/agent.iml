@@ -20,6 +20,7 @@
     <orderEntry type="library" name="TeamCity OpenAPI Agent" level="project" />
     <orderEntry type="library" name="Jetbrains Annotations" level="project" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="library" name="TeamCity Spring libs" level="project" />
   </component>
 </module>
 

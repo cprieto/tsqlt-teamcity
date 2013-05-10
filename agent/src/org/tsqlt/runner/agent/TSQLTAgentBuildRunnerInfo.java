@@ -3,6 +3,7 @@ package org.tsqlt.runner.agent;
 import com.sun.istack.internal.NotNull;
 import jetbrains.buildServer.agent.AgentBuildRunnerInfo;
 import jetbrains.buildServer.agent.BuildAgentConfiguration;
+import jetbrains.buildServer.log.Loggers;
 import org.tsqlt.runner.common.PluginConstants;
 
 public class TSQLTAgentBuildRunnerInfo implements AgentBuildRunnerInfo {
@@ -14,6 +15,7 @@ public class TSQLTAgentBuildRunnerInfo implements AgentBuildRunnerInfo {
 
     @Override
     public boolean canRun(@NotNull BuildAgentConfiguration buildAgentConfiguration) {
+        Loggers.AGENT.info("Somebody asked me if I can run this, I said yes");
         return true;
     }
 }
