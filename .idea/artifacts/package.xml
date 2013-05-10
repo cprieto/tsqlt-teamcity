@@ -8,15 +8,6 @@
           <element id="module-output" name="server" />
         </element>
       </element>
-      <element id="directory" name="agent">
-        <element id="archive" name="tsql-agent.zip">
-          <element id="file-copy" path="$PROJECT_DIR$/agent/teamcity-plugin.xml" />
-          <element id="archive" name="tsqlt-agent.jar">
-            <element id="module-output" name="agent" />
-          </element>
-          <element id="artifact" artifact-name="tsqlt-common:jar" />
-        </element>
-      </element>
       <element id="file-copy" path="$PROJECT_DIR$/server/teamcity-plugin.xml" />
     </root>
   </artifact>
