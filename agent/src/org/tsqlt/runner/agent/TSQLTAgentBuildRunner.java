@@ -8,12 +8,12 @@ public class TSQLTAgentBuildRunner implements AgentBuildRunner {
     @Override
     public BuildProcess createBuildProcess(@NotNull AgentRunningBuild agentRunningBuild,
                                            @NotNull BuildRunnerContext buildRunnerContext) throws RunBuildException {
-        return null;
+        return new TSQLTBuildProcess();
     }
 
     @Override
     public AgentBuildRunnerInfo getRunnerInfo() {
-        return null;
+        return new TSQLTAgentBuildRunnerInfo();
     }
 }
 
