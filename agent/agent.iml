@@ -18,6 +18,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="TeamCity OpenAPI Common" level="project" />
     <orderEntry type="library" name="TeamCity OpenAPI Agent" level="project" />
+    <orderEntry type="library" name="Jetbrains Annotations" level="project" />
   </component>
 </module>
 
