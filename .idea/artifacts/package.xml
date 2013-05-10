@@ -10,6 +10,9 @@
         </element>
       </element>
       <element id="file-copy" path="$PROJECT_DIR$/server/teamcity-plugin.xml" />
+      <element id="directory" name="agent">
+        <element id="artifact" artifact-name="agent" />
+      </element>
     </root>
   </artifact>
 </component>
