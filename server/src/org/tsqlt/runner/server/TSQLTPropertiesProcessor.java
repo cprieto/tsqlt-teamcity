@@ -2,6 +2,7 @@ package org.tsqlt.runner.server;
 
 import jetbrains.buildServer.serverSide.InvalidProperty;
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
+import org.jetbrains.annotations.NotNull;
 import org.tsqlt.runner.common.PropertyNames;
 
 import java.util.Collection;
@@ -11,9 +12,9 @@ import java.util.Vector;
 
 public class TSQLTPropertiesProcessor implements PropertiesProcessor {
     @Override
-    public Collection<InvalidProperty> process(Map<String, String> properties) {
+    public Collection<InvalidProperty> process(@NotNull Map<String, String> properties) {
         List<InvalidProperty> invalidProperties = new Vector<InvalidProperty>();
-        if (isEmpty(properties, PropertyNames.CONNECTION_STRING))
+        if (hasProperty(properties, PropertyNames.CONNECTION_STRING) == false)
             invalidProperties.add(new InvalidProperty(
                     PropertyNames.CONNECTION_STRING,
                     "You need to specify JDBC connection string"));
@@ -21,7 +22,7 @@ public class TSQLTPropertiesProcessor implements PropertiesProcessor {
         return invalidProperties;
     }
 
-    private boolean isEmpty(Map<String, String> map, String key) {
-        return map.containsKey(key) == false || map.get(key).isEmpty() == false;
+    private boolean hasProperty(@NotNull Map<String, String> map, @NotNull String key) {
+        return map.containsKey(key) && map.get(key).isEmpty() == false;
     }
 }

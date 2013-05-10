@@ -11,6 +11,7 @@ import org.tsqlt.runner.common.PropertyNames;
 import java.util.Collection;
 import java.util.HashMap;
 
+import static junit.framework.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class TSQLTPropertiesProcessorTest {
@@ -26,14 +27,27 @@ public class TSQLTPropertiesProcessorTest {
         HashMap<String, String> properties = new HashMap<String, String>();
         Collection<InvalidProperty> invalid = processor.process(properties);
 
-        boolean hasProperty = CollectionUtils.exists(invalid, new Predicate() {
+        boolean hasProperty = hasInvalid(invalid, PropertyNames.CONNECTION_STRING);
+        assertTrue(hasProperty);
+    }
+
+    @Test
+    public void testProcessPassWithValidConnectionString() throws Exception {
+        HashMap<String, String> properties = new HashMap<String, String>();
+        properties.put(PropertyNames.CONNECTION_STRING, "jdbc://database/stuff");
+
+        Collection<InvalidProperty> invalid = processor.process(properties);
+        boolean hasKey = hasInvalid(invalid, PropertyNames.CONNECTION_STRING);
+        assertFalse(hasKey);
+    }
+
+    private boolean hasInvalid(Collection<InvalidProperty> properties, final String key) {
+        return CollectionUtils.exists(properties, new Predicate() {
             @Override
             public boolean evaluate(Object o) {
                 InvalidProperty property = (InvalidProperty) o;
-                return property.getPropertyName() == PropertyNames.CONNECTION_STRING;
+                return property.getPropertyName() == key;
             }
         });
-
-        assertTrue(hasProperty);
     }
 }
