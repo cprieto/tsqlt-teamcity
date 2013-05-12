@@ -1,58 +1,132 @@
 package org.tsqlt.runner.agent;
 
+import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.log.Loggers;
 import org.jetbrains.annotations.NotNull;
 import jetbrains.buildServer.RunBuildException;
-import jetbrains.buildServer.agent.AgentRunningBuild;
-import jetbrains.buildServer.agent.BuildFinishedStatus;
-import jetbrains.buildServer.agent.BuildProcess;
-import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.messages.DefaultMessagesInfo;
+import org.tsqlt.runner.common.PluginConstants;
+import org.tsqlt.runner.common.PropertyNames;
+
+import java.sql.*;
+import java.util.Map;
 
 public class TSQLTBuildProcess implements BuildProcess {
     private final BuildProgressLogger logger;
+    private final Map<String, String> properties;
+    private boolean failed = false;
 
-    public TSQLTBuildProcess(@NotNull AgentRunningBuild agentRunningBuild) {
+    public TSQLTBuildProcess(@NotNull AgentRunningBuild agentRunningBuild, BuildRunnerContext context) {
         logger = agentRunningBuild.getBuildLogger();
+        properties = context.getRunnerParameters();
     }
 
     @Override
     public void start() throws RunBuildException {
-        Loggers.AGENT.warn("This shit started");
+        failed = false;
 
-        logger.activityStarted("tSQLt", DefaultMessagesInfo.BLOCK_TYPE_TEST_SUITE);
-        logger.logSuiteStarted("Sample Suite");
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            Connection connection = getConnection();
+            runAll(connection);
+        } catch (ClassNotFoundException e){
+            logger.error("jTDS driver not found");
+            failed = true;
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            failed = true;
+        }
+    }
 
-        logger.logTestStarted("Test 1");
-        logger.logTestFinished("Test 1");
+    private void runAll(Connection connection) throws SQLException {
+        logger.progressStarted("Running all tSQLt tests");
 
-        logger.logTestStarted("Test 2");
-        logger.logTestFailed("Shit happens", "Yes", "but that is good");
-        logger.logTestFinished("Test 2");
+        Statement query = connection.createStatement();
+        try {
+            query.execute(SqlCommands.EXECUTE_ALL_TESTS);
+        } catch (SQLException e) {
+            processException(e, connection);
+            throw e;
+        }
+        query.close();
 
-        logger.logSuiteFinished("Sample Suite");
-        logger.activityStarted("tSQLt", DefaultMessagesInfo.BLOCK_TYPE_TEST_SUITE);
+        processTestResults(connection);
 
-        Loggers.AGENT.warn("This shit should be finished");
+        logger.progressFinished();
+    }
+
+    private void processTestResults(Connection connection) {
+        try {
+            Statement query = connection.createStatement();
+            ResultSet results = query.executeQuery(SqlCommands.QUERY_RESULTS);
+            reportResults(results);
+            query.close();
+        } catch (SQLException e) {
+            logger.error(String.format("Error retrieving results: %s", e.getMessage()));
+        }
+    }
+
+    private void reportResults(ResultSet results) throws SQLException {
+        String previousSuite = null;
+
+        while (results.next()){
+            String suite = results.getString("Class");
+            if (previousSuite == null || suite != previousSuite){
+                startNewSuite(previousSuite, suite);
+            }
+
+            String test = results.getString("TestCase");
+            String result = results.getString("Result");
+            String message = results.getString("Msg");
+            Loggers.AGENT.info(String.format("Result is %s", result));
+            logger.logTestStarted(test);
+
+            if (result.equalsIgnoreCase("Failure"))
+                logger.logTestFailed(test, message, null);
+
+            logger.logTestFinished(test);
+        }
+
+        if (previousSuite != null)
+            logger.logSuiteFinished(previousSuite);
+
+        results.close();
+    }
+
+    private void startNewSuite(String previousSuite, String suite) {
+        if (previousSuite != null)
+            logger.logSuiteFinished(previousSuite);
+        logger.logSuiteStarted(suite);
+    }
+
+    private void processException(SQLException e, Connection connection){
+        if (e.getErrorCode() == 50000)
+            processTestResults(connection);
+    }
+
+    private Connection getConnection() throws SQLException {
+        String connectionString = properties.get(PropertyNames.CONNECTION_STRING);
+        return DriverManager.getConnection(connectionString);
     }
 
     @Override
     public boolean isInterrupted() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return false;
     }
 
     @Override
     public boolean isFinished() {
-        return true;  //To change body of implemented methods use File | Settings | File Templates.
+        return true;
     }
 
     @Override
     public void interrupt() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public BuildFinishedStatus waitFor() throws RunBuildException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        if (failed)
+            return BuildFinishedStatus.FINISHED_FAILED;
+        return null;
     }
 }

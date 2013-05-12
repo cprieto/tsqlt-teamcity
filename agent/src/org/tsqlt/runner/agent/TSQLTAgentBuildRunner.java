@@ -8,17 +8,18 @@ import jetbrains.buildServer.log.Loggers;
 public class TSQLTAgentBuildRunner implements AgentBuildRunner {
 
     public TSQLTAgentBuildRunner(){
-        Loggers.AGENT.info("Is somebody calling me?");
     }
 
     @Override
     public BuildProcess createBuildProcess(@NotNull AgentRunningBuild agentRunningBuild,
                                            @NotNull BuildRunnerContext buildRunnerContext) throws RunBuildException {
-        return new TSQLTBuildProcess(agentRunningBuild);
+        Loggers.AGENT.info("Requesting process");
+        return new TSQLTBuildProcess(agentRunningBuild, buildRunnerContext);
     }
 
     @Override
     public AgentBuildRunnerInfo getRunnerInfo() {
+        Loggers.AGENT.info("Requesting info");
         return new TSQLTAgentBuildRunnerInfo();
     }
 }

@@ -4,10 +4,14 @@
     <root id="root">
       <element id="archive" name="tsql-agent.zip">
         <element id="file-copy" path="$PROJECT_DIR$/agent/teamcity-plugin.xml" />
-        <element id="archive" name="tsqlt-agent.jar">
-          <element id="module-output" name="agent" />
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="net.sourceforge.jtds:jtds:1.2.7" />
+          <element id="artifact" artifact-name="tsqlt-common:jar" />
         </element>
-        <element id="artifact" artifact-name="tsqlt-common:jar" />
+        <element id="archive" name="agent.jar">
+          <element id="module-output" name="agent" />
+          <element id="file-copy" path="$PROJECT_DIR$/agent/src/META-INF/MANIFEST.MF" />
+        </element>
       </element>
     </root>
   </artifact>

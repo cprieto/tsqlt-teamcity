@@ -3,6 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/tsqlt_common_jar</output-path>
     <root id="archive" name="common.jar">
       <element id="module-output" name="common" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/agent/src/META-INF/MANIFEST.MF" />
+      </element>
     </root>
   </artifact>
 </component>
