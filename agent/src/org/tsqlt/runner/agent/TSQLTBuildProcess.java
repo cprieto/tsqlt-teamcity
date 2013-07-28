@@ -16,7 +16,7 @@ public class TSQLTBuildProcess implements BuildProcess {
     private final Map<String, String> properties;
     private boolean failed = false;
 
-    public TSQLTBuildProcess(@NotNull AgentRunningBuild agentRunningBuild, BuildRunnerContext context) {
+    public TSQLTBuildProcess(@NotNull AgentRunningBuild agentRunningBuild, @NotNull BuildRunnerContext context) {
         logger = agentRunningBuild.getBuildLogger();
         properties = context.getRunnerParameters();
     }
