@@ -40,4 +40,18 @@ public class DomainUserTest {
 
         assertFalse(sut.hasDomain());
     }
+
+    @Test
+    public void testItCanReturnToStringWithOnlyUser(){
+        DomainUser sut = new DomainUser("user");
+
+        assertEquals(sut.toString(), "user");
+    }
+
+    @Test
+    public void testItCanReturnToStringWithUserAndDomain(){
+        DomainUser sut = new DomainUser("domain\\user");
+
+        assertEquals(sut.toString(), "domain\\user");
+    }
 }
