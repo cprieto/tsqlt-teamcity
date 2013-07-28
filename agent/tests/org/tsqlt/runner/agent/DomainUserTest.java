@@ -1,6 +1,10 @@
 package org.tsqlt.runner.agent;
 
 import org.testng.annotations.Test;
+import org.tsqlt.runner.common.PropertyNames;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.testng.Assert.*;
 
@@ -53,5 +57,15 @@ public class DomainUserTest {
         DomainUser sut = new DomainUser("domain\\user");
 
         assertEquals(sut.toString(), "domain\\user");
+    }
+
+    @Test
+    public void testItCanBeCreatedFromProperties(){
+        Map<String, String> properties = new HashMap<String, String>() {{
+            put(PropertyNames.USER_DOMAIN, "user");
+        }};
+        DomainUser sut = DomainUser.create(properties);
+
+        assertNotNull(sut);
     }
 }

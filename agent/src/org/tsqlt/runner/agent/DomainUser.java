@@ -1,6 +1,9 @@
 package org.tsqlt.runner.agent;
 
 import org.jetbrains.annotations.NotNull;
+import org.tsqlt.runner.common.PropertyNames;
+
+import java.util.Map;
 
 public class DomainUser {
     private final String user;
@@ -32,5 +35,9 @@ public class DomainUser {
     @Override
     public String toString() {
         return hasDomain() ? String.format("%s\\%s", domain, user) : user;
+    }
+
+    public static DomainUser create(Map<String, String> properties){
+        return new DomainUser(PropertyNames.USER_DOMAIN);
     }
 }

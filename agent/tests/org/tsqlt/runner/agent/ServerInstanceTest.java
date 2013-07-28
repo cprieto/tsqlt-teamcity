@@ -66,7 +66,7 @@ public class ServerInstanceTest {
     @Test
     public void testItCanBeCreatedFromProperties(){
         Map<String, String> properties = new HashMap<String, String>() {{
-            put(PropertyNames.USER_INSTANCE, "user");
+            put(PropertyNames.SERVER_INSTANCE, "user");
         }};
 
         ServerInstance sut = ServerInstance.create(properties);
