@@ -28,4 +28,9 @@ public class DomainUser {
     public boolean hasDomain(){
         return domain != null && !domain.isEmpty();
     }
+
+    @Override
+    public String toString() {
+        return hasDomain() ? String.format("%s\\%s", domain, user) : user;
+    }
 }
