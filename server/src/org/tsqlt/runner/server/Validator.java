@@ -1,7 +1,9 @@
 package org.tsqlt.runner.server;
 
+import jetbrains.buildServer.serverSide.InvalidProperty;
+
 import java.util.Map;
 
 public interface Validator {
-    String hasErrors(Map<String, String> properties);
+    InvalidProperty hasErrors(Map<String, String> properties);
 }

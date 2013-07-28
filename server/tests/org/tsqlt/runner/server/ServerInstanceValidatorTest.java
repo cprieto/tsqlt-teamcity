@@ -1,11 +1,13 @@
 package org.tsqlt.runner.server;
 
+import jetbrains.buildServer.serverSide.InvalidProperty;
 import org.testng.annotations.Test;
 import org.tsqlt.runner.common.PropertyNames;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 
@@ -15,9 +17,10 @@ public class ServerInstanceValidatorTest {
     @Test
     public void testItCanValidateWhenIsEmpty(){
         Map<String, String> properties = new HashMap<String, String>();
-        String error = sut.hasErrors(properties);
+        InvalidProperty error = sut.hasErrors(properties);
 
         assertNotNull(error);
+        assertEquals(error.getPropertyName(), PropertyNames.SERVER_INSTANCE);
     }
 
     @Test
@@ -25,9 +28,10 @@ public class ServerInstanceValidatorTest {
         Map<String, String> properties = new HashMap<String, String>() {{
            put(PropertyNames.SERVER_INSTANCE, "server\\is\\invalid");
         }};
-        String error = sut.hasErrors(properties);
+        InvalidProperty error = sut.hasErrors(properties);
 
         assertNotNull(error);
+        assertEquals(error.getPropertyName(), PropertyNames.SERVER_INSTANCE);
     }
 
     @Test
@@ -35,7 +39,7 @@ public class ServerInstanceValidatorTest {
         Map<String, String> properties = new HashMap<String, String>() {{
             put(PropertyNames.SERVER_INSTANCE, "server\\instance");
         }};
-        String error = sut.hasErrors(properties);
+        InvalidProperty error = sut.hasErrors(properties);
 
         assertNull(error);
     }
@@ -45,7 +49,7 @@ public class ServerInstanceValidatorTest {
         Map<String, String> properties = new HashMap<String, String>() {{
             put(PropertyNames.SERVER_INSTANCE, "server");
         }};
-        String error = sut.hasErrors(properties);
+        InvalidProperty error = sut.hasErrors(properties);
 
         assertNull(error);
     }
