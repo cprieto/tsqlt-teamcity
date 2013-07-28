@@ -1,6 +1,10 @@
 package org.tsqlt.runner.agent;
 
 import org.testng.annotations.Test;
+import org.tsqlt.runner.common.PropertyNames;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.testng.Assert.*;
 
@@ -57,5 +61,15 @@ public class ServerInstanceTest {
         ServerInstance sut = new ServerInstance("server\\instance");
 
         assertEquals(sut.toString(), "server\\instance");
+    }
+
+    @Test
+    public void testItCanBeCreatedFromProperties(){
+        Map<String, String> properties = new HashMap<String, String>() {{
+            put(PropertyNames.USER_INSTANCE, "user");
+        }};
+
+        ServerInstance sut = ServerInstance.create(properties);
+        assertNotNull(sut);
     }
 }
