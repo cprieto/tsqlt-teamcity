@@ -8,9 +8,9 @@ import org.tsqlt.runner.common.PropertyNames;
 import java.util.*;
 
 public class TSQLTPropertiesProcessor implements PropertiesProcessor {
-    private final Vector<Validator> validators;
+    private final List<Validator> validators;
 
-    public TSQLTPropertiesProcessor(Vector<Validator> validators) {
+    public TSQLTPropertiesProcessor(List<Validator> validators) {
         this.validators = validators == null || validators.isEmpty() ? new Vector<Validator>() : validators;
     }
 
