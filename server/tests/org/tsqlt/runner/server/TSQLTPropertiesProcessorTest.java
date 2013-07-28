@@ -10,43 +10,41 @@ import org.tsqlt.runner.common.PropertyNames;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 public class TSQLTPropertiesProcessorTest {
     private PropertiesProcessor processor;
 
-    @BeforeTest
-    public void setUp(){
-        processor = new TSQLTPropertiesProcessor();
-    }
-
     @Test
-    public void testProcessShouldReportEmptyConnectionString() throws Exception {
-        HashMap<String, String> properties = new HashMap<String, String>();
-        Collection<InvalidProperty> invalid = processor.process(properties);
+    public void testItCanValidateWithOneValidator(){
+        Vector<Validator> validators = new Vector<Validator>() {{
+            add(new Validator() {
+                @Override
+                public InvalidProperty hasErrors(Map<String, String> properties) {
+                    return new InvalidProperty("Sample", "Error");
+                }
+            });
+        }};
 
-        boolean hasProperty = hasInvalid(invalid, PropertyNames.CONNECTION_STRING);
-        assertTrue(hasProperty);
+        Map<String, String> properties = new HashMap<String, String>();
+
+        processor = new TSQLTPropertiesProcessor(validators);
+        Collection<InvalidProperty> invalidProperties = processor.process(properties);
+
+        assertTrue(contains("Sample", invalidProperties));
     }
 
-    @Test
-    public void testProcessPassWithValidConnectionString() throws Exception {
-        HashMap<String, String> properties = new HashMap<String, String>();
-        properties.put(PropertyNames.CONNECTION_STRING, "jdbc://database/stuff");
-
-        Collection<InvalidProperty> invalid = processor.process(properties);
-        boolean hasKey = hasInvalid(invalid, PropertyNames.CONNECTION_STRING);
-        assertFalse(hasKey);
-    }
-
-    private boolean hasInvalid(Collection<InvalidProperty> properties, final String key) {
+    private boolean contains(final String propertyName, Collection<InvalidProperty> properties) {
         return CollectionUtils.exists(properties, new Predicate() {
             @Override
             public boolean evaluate(Object o) {
                 InvalidProperty property = (InvalidProperty) o;
-                return property.getPropertyName() == key;
+                return property.getPropertyName() == propertyName;
             }
         });
     }

@@ -29,7 +29,7 @@ public class TSQLTRunType extends RunType {
 
     @Override
     public PropertiesProcessor getRunnerPropertiesProcessor() {
-        return new TSQLTPropertiesProcessor();
+        return new TSQLTPropertiesProcessor(null);
     }
 
     @Override
