@@ -8,7 +8,7 @@
 <l:settingsGroup title="tSQLt Database Options">
     <tr>
         <th>
-            <label for="tsqlt.connection">JDBC Connection String: <span class="mandatoryAsterix" title="Mandatory field">*</span></label>
+            <label for="tsqlt.connection">JDBC Connection String: <l:star/></label>
         </th>
         <td>
             <props:textProperty name="tsqlt.connection" className="longField" />
@@ -20,29 +20,38 @@
 <l:settingsGroup title="tSQLt Database Information">
     <tr>
         <th>
-            <label for="tsqlt.server_instance">Database Server: <span class="mandatoryAsterix" title="Mandatory field">*</span></label>
+            <label for="tsqlt.server_instance">Database Server: <l:star/></label>
         </th>
         <td>
             <props:textProperty name="tsqlt.server_instance" className="longField" />
             <span class="error" id="error_tsqt.server_instance"></span>
-            <span class="smallNote">Database Server. You can specify the instance name with the syntax Server\Instance, ej. (local)\SQLEXPRESS</span>
+            <span class="smallNote">Database Server. You can specify the instance name with the syntax Server\Instance, ej. (local)\SQLEXPRESS, additionally you can specify a port using Server:Port</span>
         </td>
     </tr>
     <tr>
         <th>
-            <label for="tsqlt.database">Database: <span class="mandatoryAsterix" title="Mandatory field">*</span></label>
+            <label for="tsqlt.database">Database name: <l:star/></label>
         </th>
         <td>
             <props:textProperty name="tsqlt.database" className="longField" />
             <span class="error" id="error_tsqt.database"></span>
-            <span class="smallNote">Database catalog, ej. Marketing</span>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label for="tsqlt.options">Additional database connection options: </label>
+        </th>
+        <td>
+            <props:multilineProperty name="tsqlt.options" className="longField" expanded="true" cols="58" rows="6" linkTitle="Additional options" />
+            <span class="smallNote">Additional connection options. Options are given in the format option=value separated by semicolon. ej. option1=value;option2=value2</span>
+            <span class="smallNote">For complete set of options please check the <a href="http://jtds.sourceforge.net/faq.html#urlFormat" rel="help" target="_blank" title="jTDS FAQ">jTDS FAQ page</a></span>
         </td>
     </tr>
 </l:settingsGroup>
-<l:settingsGroup title="tSQLt Database Credential information">
+<l:settingsGroup title="tSQLt Database Credential Information">
     <tr>
         <th>
-            <label for="tsqlt.user_domain">User: <span class="mandatoryAsterix" title="Mandatory field">*</span></label>
+            <label for="tsqlt.user_domain">User name: <l:star/></label>
         </th>
         <td>
             <props:textProperty name="tsqlt.user_domain" className="longField" />
@@ -52,12 +61,11 @@
     </tr>
     <tr>
         <th>
-            <label for="tsqlt.password">Password: <span class="mandatoryAsterix" title="Mandatory field">*</span></label>
+            <label for="tsqlt.password">Password: <l:star/></label>
         </th>
         <td>
             <props:passwordProperty name="secure:tsqlt.password" className="longField"/>
-            <span class="error" id="error_tsqlt.password"></span>
-            <span class="smallNote">User password for login</span>
+            <span class="error" id="error_secure:tsqlt.password"></span>
         </td>
     </tr>
 </l:settingsGroup>
