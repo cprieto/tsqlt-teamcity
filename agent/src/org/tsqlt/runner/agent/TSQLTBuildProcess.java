@@ -21,6 +21,11 @@ public class TSQLTBuildProcess implements BuildProcess {
                              @NotNull BuildRunnerContext context) {
         logger = agentRunningBuild.getBuildLogger();
         properties = context.getRunnerParameters();
+
+        for (String prop : properties.keySet()) {
+            Loggers.AGENT.info(String.format("[tSQLt Agent] %s : %s", prop, properties.get(prop)));
+        }
+
         connectionBuilder = new SqlServerConnectionBuilder(properties);
     }
 

@@ -19,7 +19,7 @@ public class SqlServerConnectionBuilder {
         DomainUser domainUser = DomainUser.create(properties);
         String database = properties.get(PropertyNames.DATABASE);
         OptionParser options = new OptionParser(properties.get(PropertyNames.OPTIONS));
-        password = properties.get(properties.get(PropertyNames.USER_PASSWORD));
+        password = properties.get(PropertyNames.USER_PASSWORD);
         user = domainUser.getUser();
 
         builder = new JtdsConnectionStringBuilder(server, database, domainUser.getDomain(), options.getOptions());
