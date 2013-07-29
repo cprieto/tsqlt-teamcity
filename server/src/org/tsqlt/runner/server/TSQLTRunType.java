@@ -1,15 +1,19 @@
 package org.tsqlt.runner.server;
 
+import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.serverSide.RunType;
 import jetbrains.buildServer.serverSide.RunTypeRegistry;
 import org.tsqlt.runner.common.PluginConstants;
 
+import java.util.List;
 import java.util.Map;
 
 public class TSQLTRunType extends RunType {
-    public TSQLTRunType(final RunTypeRegistry registry) {
+    private final PropertiesProcessor propertiesProcessor;
+    public TSQLTRunType(final RunTypeRegistry registry, final PropertiesProcessor processor) {
         registry.registerRunType(this);
+        propertiesProcessor = processor;
     }
 
     @Override
@@ -29,7 +33,7 @@ public class TSQLTRunType extends RunType {
 
     @Override
     public PropertiesProcessor getRunnerPropertiesProcessor() {
-        return new TSQLTPropertiesProcessor(null);
+        return propertiesProcessor;
     }
 
     @Override

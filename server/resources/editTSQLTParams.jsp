@@ -5,18 +5,6 @@
 
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 
-<l:settingsGroup title="tSQLt Database Options">
-    <tr>
-        <th>
-            <label for="tsqlt.connection">JDBC Connection String: <l:star/></label>
-        </th>
-        <td>
-            <props:textProperty name="tsqlt.connection" className="longField" />
-            <span class="error" id="error_tsqlt.connection"></span>
-            <span class="smallNote">JDBC Connection string for database containing the tests to run</span>
-        </td>
-    </tr>
-</l:settingsGroup>
 <l:settingsGroup title="tSQLt Database Information">
     <tr>
         <th>
@@ -24,7 +12,7 @@
         </th>
         <td>
             <props:textProperty name="tsqlt.server_instance" className="longField" />
-            <span class="error" id="error_tsqt.server_instance"></span>
+            <span class="error" id="error_tsqlt.server_instance"></span>
             <span class="smallNote">Database Server. You can specify the instance name with the syntax Server\Instance, ej. (local)\SQLEXPRESS, additionally you can specify a port using Server:Port</span>
         </td>
     </tr>
@@ -34,7 +22,7 @@
         </th>
         <td>
             <props:textProperty name="tsqlt.database" className="longField" />
-            <span class="error" id="error_tsqt.database"></span>
+            <span class="error" id="error_tsqlt.database"></span>
         </td>
     </tr>
     <tr>
@@ -55,7 +43,7 @@
         </th>
         <td>
             <props:textProperty name="tsqlt.user_domain" className="longField" />
-            <span class="error" id="error_tsqt.user_domain"></span>
+            <span class="error" id="error_tsqlt.user_domain"></span>
             <span class="smallNote">User for database authentication. You can specify an optional domain using the syntax domain\user</span>
         </td>
     </tr>
@@ -64,8 +52,8 @@
             <label for="tsqlt.password">Password: <l:star/></label>
         </th>
         <td>
-            <props:passwordProperty name="secure:tsqlt.password" className="longField"/>
-            <span class="error" id="error_secure:tsqlt.password"></span>
+            <props:passwordProperty name="tsqlt.password" className="longField"/>
+            <span class="error" id="error_tsqlt.password"></span>
         </td>
     </tr>
 </l:settingsGroup>

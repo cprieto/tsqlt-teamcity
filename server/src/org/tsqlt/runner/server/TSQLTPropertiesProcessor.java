@@ -1,5 +1,6 @@
 package org.tsqlt.runner.server;
 
+import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.serverSide.InvalidProperty;
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,9 @@ public class TSQLTPropertiesProcessor implements PropertiesProcessor {
         for (Validator validator : validators){
             InvalidProperty error = validator.hasErrors(properties);
             if (error == null) continue;
+
+            Loggers.SERVER.warn(String.format("[tSQLt Plugin] invalid property %s : %s",
+                    error.getPropertyName(), error.getInvalidReason()));
 
             invalidProperties.add(error);
         }

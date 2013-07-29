@@ -9,13 +9,16 @@
                            http://www.springframework.org/schema/lang
                            http://www.springframework.org/schema/lang/spring-lang-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
         default-autowire="constructor">
-    <bean id="tsqltRunType" class="org.tsqlt.runner.server.TSQLTRunType" />
+    <bean id="tsqltRunType" class="org.tsqlt.runner.server.TSQLTRunType">
+        <constructor-arg index="1" ref="tsqltPropertyProcessor" />
+    </bean>
     <bean id="tsqltPropertyProcessor" class="org.tsqlt.runner.server.TSQLTPropertiesProcessor">
         <constructor-arg>
             <list>
                 <bean class="org.tsqlt.runner.server.ServerInstanceValidator"/>
                 <bean class="org.tsqlt.runner.server.DomainUserValidator"/>
                 <bean class="org.tsqlt.runner.server.PasswordValidator"/>
+                <bean class="org.tsqlt.runner.server.DatabaseValidator"/>
             </list>
         </constructor-arg>
     </bean>
