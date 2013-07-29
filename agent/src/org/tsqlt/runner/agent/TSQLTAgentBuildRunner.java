@@ -6,10 +6,6 @@ import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.log.Loggers;
 
 public class TSQLTAgentBuildRunner implements AgentBuildRunner {
-
-    public TSQLTAgentBuildRunner(){
-    }
-
     @Override
     public BuildProcess createBuildProcess(@NotNull AgentRunningBuild agentRunningBuild,
                                            @NotNull BuildRunnerContext buildRunnerContext) throws RunBuildException {

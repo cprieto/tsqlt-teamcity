@@ -14,11 +14,14 @@ import java.util.Map;
 public class TSQLTBuildProcess implements BuildProcess {
     private final BuildProgressLogger logger;
     private final Map<String, String> properties;
+    private final SqlServerConnectionBuilder connectionBuilder;
     private boolean failed = false;
 
-    public TSQLTBuildProcess(@NotNull AgentRunningBuild agentRunningBuild, @NotNull BuildRunnerContext context) {
+    public TSQLTBuildProcess(@NotNull AgentRunningBuild agentRunningBuild,
+                             @NotNull BuildRunnerContext context) {
         logger = agentRunningBuild.getBuildLogger();
         properties = context.getRunnerParameters();
+        connectionBuilder = new SqlServerConnectionBuilder(properties);
     }
 
     @Override
@@ -27,8 +30,8 @@ public class TSQLTBuildProcess implements BuildProcess {
 
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            Connection connection = getConnection();
-            runAll(connection);
+            Connection connection = connectionBuilder.getConnection();
+            //runAll(connection);
         } catch (ClassNotFoundException e){
             logger.error("jTDS driver not found");
             failed = true;

@@ -1,5 +1,6 @@
 package org.tsqlt.runner.agent;
 
+import jetbrains.buildServer.log.Loggers;
 import org.jetbrains.annotations.NotNull;
 import org.tsqlt.runner.common.PropertyNames;
 
@@ -25,8 +26,10 @@ public class SqlServerConnectionBuilder {
     }
 
     public Connection getConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection(builder.toString(), user, password);
+        Loggers.AGENT.info(String.format("[tSQLt Agent] connection string is %s", builder.toString()));
+        Loggers.AGENT.info(String.format("[tSQLt Agent] username is %s and password %s", user, password));
+        //Connection connection = DriverManager.getConnection(builder.toString(), user, password);
 
-        return connection;
+        return null;
     }
 }
