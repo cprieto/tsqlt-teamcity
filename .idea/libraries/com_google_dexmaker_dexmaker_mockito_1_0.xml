@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="com.google.dexmaker:dexmaker-mockito:1.0" type="repository">
+    <properties maven-id="com.google.dexmaker:dexmaker-mockito:1.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/dexmaker-mockito-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/dexmaker-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mockito-core-1.9.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/objenesis-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

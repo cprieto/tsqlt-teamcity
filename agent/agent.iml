@@ -41,6 +41,16 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="com.google.dexmaker:dexmaker-mockito:1.0" level="project" />
+    <orderEntry type="module-library" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/testng.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
