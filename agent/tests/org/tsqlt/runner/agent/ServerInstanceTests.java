@@ -72,4 +72,38 @@ public class ServerInstanceTests {
         ServerInstance sut = ServerInstance.create(properties);
         assertNotNull(sut);
     }
+
+    @Test
+    public void testItWillReturnDefaultPortIfNotSpecified(){
+        final String input = "server";
+        ServerInstance sut = new ServerInstance(input);
+
+        assertEquals(sut.getPort(), 1433);
+    }
+
+    @Test
+    public void testItWillReturnSpecifiedPort(){
+        final String input = "server:1211\\blah";
+        ServerInstance sut = new ServerInstance(input);
+
+        assertEquals(sut.getPort(), 1211);
+        assertEquals(sut.getServer(), "server");
+    }
+
+    @Test
+    public void testItCanTransformLocalAddress(){
+        final String input = "(local)";
+        ServerInstance sut = new ServerInstance(input);
+
+        assertEquals(sut.getServer(), "127.0.0.1");
+    }
+
+    @Test
+    public void testItCanTransformDotAddress(){
+        final String input = ".\\SQLEXPRESS";
+        ServerInstance sut = new ServerInstance(input);
+
+        assertEquals(sut.getServer(), "127.0.0.1");
+        assertEquals(sut.getInstance(), "SQLEXPRESS");
+    }
 }
