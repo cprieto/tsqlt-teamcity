@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.mock;
 
-public class TSQLTBuildProcessTest {
+public class TSQLTBuildProcessTests {
     private BuildProcess sut;
     private AgentRunningBuild agentRunningBuild;
     private BuildRunnerContext context;
@@ -19,7 +19,7 @@ public class TSQLTBuildProcessTest {
         agentRunningBuild = mock(AgentRunningBuild.class);
         context = mock(BuildRunnerContext.class);
 
-        sut = new TSQLTBuildProcess(agentRunningBuild, context);
+        sut = new TSQLTBuildProcess(null);
     }
 
     @Test

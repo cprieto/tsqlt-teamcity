@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class OptionParserTest {
+public class OptionParserTests {
     @Test
     public void testItCanParseOneOption(){
         OptionParser sut = new OptionParser("option=value");

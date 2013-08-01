@@ -8,7 +8,7 @@ import java.util.Map;
 
 import static org.testng.Assert.*;
 
-public class DomainUserTest {
+public class DomainUserTests {
     @Test
     public void testItCanGetServer(){
         DomainUser sut = new DomainUser("user");

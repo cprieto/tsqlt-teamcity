@@ -8,7 +8,7 @@ import java.util.Map;
 
 import static org.testng.Assert.*;
 
-public class ServerInstanceTest {
+public class ServerInstanceTests {
     @Test
     public void testItCanParseServerAndInstance(){
         final String input = "server\\instance";

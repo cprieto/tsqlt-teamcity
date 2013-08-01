@@ -8,7 +8,7 @@ import java.util.Map;
 import static org.testng.Assert.assertEquals;
 
 
-public class JtdsConnectionStringBuilderTest {
+public class JtdsConnectionStringBuilderTests {
     @Test
     public void testItCanBuildConnectionStringUsingServer(){
         ServerInstance server = new ServerInstance("server");

@@ -6,7 +6,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-public class OptionValueTest {
+public class OptionValueTests {
     @Test
     public void testItCanParseOptionValue(){
         OptionValue sut = new OptionValue("option=value");
