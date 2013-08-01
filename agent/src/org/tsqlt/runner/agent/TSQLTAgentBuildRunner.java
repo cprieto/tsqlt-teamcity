@@ -13,7 +13,7 @@ public class TSQLTAgentBuildRunner implements AgentBuildRunner {
     public BuildProcess createBuildProcess(@NotNull AgentRunningBuild agentRunningBuild,
                                            @NotNull BuildRunnerContext buildRunnerContext) throws RunBuildException {
         Loggers.AGENT.info("Requesting process");
-        return new TSQLTBuildProcess(Executors.newSingleThreadExecutor());
+        return new TSQLTBuildProcess(Executors.newSingleThreadExecutor(), agentRunningBuild.getBuildLogger());
     }
 
     @NotNull

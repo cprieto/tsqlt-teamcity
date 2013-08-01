@@ -18,7 +18,6 @@ public class TSQLTAgentBuildRunnerInfo implements AgentBuildRunnerInfo {
 
     @Override
     public boolean canRun(@NotNull BuildAgentConfiguration buildAgentConfiguration) {
-        Loggers.AGENT.info("Asking if I can run");
         return true;
     }
 }
