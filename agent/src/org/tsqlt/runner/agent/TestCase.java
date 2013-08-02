@@ -8,7 +8,7 @@ public final class TestCase {
     public static final String TEST_KEY = "TestCase";
     public static final String MESSAGE_KEY = "Msg";
     public static final String RESULT_KEY = "Result";
-    public static final String SUITE_KEY = "TestSuite";
+    public static final String SUITE_KEY = "Class";
 
     public TestCase(String test, String message, String result) {
         this.test = test;

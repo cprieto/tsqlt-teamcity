@@ -29,7 +29,7 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
         try {
             execute();
         } catch (SQLException e) {
-            logger.buildFailureDescription("SQL Execution error: " + e.getMessage());
+            logger.buildFailureDescription(e.getMessage());
             return BuildFinishedStatus.FINISHED_FAILED;
         }
 
@@ -54,9 +54,16 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
     private void runAllTests(@NotNull Connection connection) throws SQLException {
         logger.progressStarted("Running tests");
         PreparedStatement query = connection.prepareStatement(SqlCommands.EXECUTE_ALL_TESTS);
-        query.execute();
-        query.close();
-        logger.progressFinished();
+        try {
+            query.execute();
+            query.close();
+        } catch (SQLException e) {
+            if (e.getErrorCode() != 50000)
+                throw e;
+            logger.message(e.getMessage());
+        } finally {
+            logger.progressFinished();
+        }
     }
 
     @NotNull
@@ -67,14 +74,15 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
     }
 
     private void logTest(@NotNull TestCase testCase) {
-        logger.logTestStarted(testCase.getTest());
+        final String test = testCase.getTest();
+        logger.logTestStarted(test);
 
         if (testCase.getResult() != TestResult.SUCCESS) {
-            logger.logTestFailed(testCase.getTest(), testCase.getMessage(), null);
+            logger.logTestFailed(test, testCase.getMessage(), null);
             return;
         }
 
-        logger.logTestFinished(testCase.getTest());
+        logger.logTestFinished(test);
     }
 
     private void reportResults(@NotNull Map<String, List<TestCase>> results) {
