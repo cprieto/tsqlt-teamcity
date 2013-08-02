@@ -21,11 +21,12 @@ public class ServerInstance {
         }
     }
 
+    @NotNull
     public String getServer(){
         return server;
     }
 
-    private void setServer(String server) {
+    private void setServer(@NotNull String server) {
         if (server.contains(":")) {
             String[] parsed = server.split(":", 2);
             this.server = transformLocalAddress(parsed[0]);
@@ -56,6 +57,7 @@ public class ServerInstance {
         return hasInstance() ? String.format("%s\\%s", server, instance) : server;
     }
 
+    @NotNull
     public static ServerInstance create(@NotNull Map<String, String> options){
         return new ServerInstance(options.get(PropertyNames.SERVER_INSTANCE));
     }

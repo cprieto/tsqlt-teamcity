@@ -4,18 +4,23 @@ import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
     private final BuildProgressLogger logger;
+    private final ConnectionBuilder connectionBuilder;
 
-    protected TSQLTBuildProcess(@NotNull ExecutorService executor, @NotNull BuildProgressLogger logger) {
+    protected TSQLTBuildProcess(@NotNull ExecutorService executor, @NotNull BuildProgressLogger logger, @NotNull ConnectionBuilder connectionBuilder) {
         super(executor);
 
         this.logger = logger;
+        this.connectionBuilder = connectionBuilder;
     }
 
     @Override
@@ -31,20 +36,22 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
         return BuildFinishedStatus.FINISHED_SUCCESS;
     }
 
-    private void execute() throws SQLException {
-            Connection connection = null;
-            runAllTests(connection);
+    private void execute() throws SQLException, ClassNotFoundException {
+        Connection connection = connectionBuilder.getConnection();
 
-            ResultSet rows = getResults(connection);
-            Map<String, List<TestCase>> results = TestCaseParser.fromResultSet(rows);
-            reportResults(results);
-            rows.getStatement().close();
-            logger.progressFinished();
+        runAllTests(connection);
 
-            connection.close();
+        ResultSet rows = getResults(connection);
+
+        Map<String, List<TestCase>> results = TestCaseParser.fromResultSet(rows);
+        reportResults(results);
+        rows.getStatement().close();
+        logger.progressFinished();
+
+        connection.close();
     }
 
-    private void runAllTests(Connection connection) throws SQLException {
+    private void runAllTests(@NotNull Connection connection) throws SQLException {
         logger.progressStarted("Running tests");
         PreparedStatement query = connection.prepareStatement(SqlCommands.EXECUTE_ALL_TESTS);
         query.execute();
@@ -52,16 +59,17 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
         logger.progressFinished();
     }
 
-    private ResultSet getResults(Connection connection) throws SQLException {
+    @NotNull
+    private ResultSet getResults(@NotNull Connection connection) throws SQLException {
         logger.progressStarted("Getting test results");
         PreparedStatement query = connection.prepareStatement(SqlCommands.QUERY_RESULTS);
         return query.executeQuery();
     }
 
-    private void logTest(@NotNull TestCase testCase){
+    private void logTest(@NotNull TestCase testCase) {
         logger.logTestStarted(testCase.getTest());
 
-        if (testCase.getResult() != TestResult.SUCCESS){
+        if (testCase.getResult() != TestResult.SUCCESS) {
             logger.logTestFailed(testCase.getTest(), testCase.getMessage(), null);
             return;
         }

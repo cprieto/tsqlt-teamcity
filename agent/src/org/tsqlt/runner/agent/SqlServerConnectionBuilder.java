@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class SqlServerConnectionBuilder {
+public class SqlServerConnectionBuilder implements ConnectionBuilder {
     private final JtdsConnectionStringBuilder builder;
     private final String user;
     private final String password;
@@ -25,11 +25,13 @@ public class SqlServerConnectionBuilder {
         builder = new JtdsConnectionStringBuilder(server, database, domainUser.getDomain(), options.getOptions());
     }
 
-    public Connection getConnection() throws SQLException {
-        Loggers.AGENT.info(String.format("[tSQLt Agent] connection string is %s", builder.toString()));
-        Loggers.AGENT.info(String.format("[tSQLt Agent] username is %s and password %s", user, password));
-        //Connection connection = DriverManager.getConnection(builder.toString(), user, password);
+    @NotNull
+    @Override
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        Loggers.AGENT.debug(String.format("[tSQLt Agent] connection string is %s", builder.toString()));
 
-        return null;
+        Class.forName("net.sourceforge.jtds.jdbc.Driver");
+
+        return DriverManager.getConnection(builder.toString(), user, password);
     }
 }
