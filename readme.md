@@ -5,6 +5,7 @@ TeamCity runner for tSQLt
 
 Most solutions to run tSQLt with TeamCity involves custom SQL and Powershell scripts and even RedGate has a tool for that (and a plugin for [TeamCity](http://www.jetbrains.com/teamcity/) as well). I needed something ever simpler, that can run tests already present in a database and report the results back. This is the result of that requirement.
 
+
 Installation
 ---
 
@@ -13,6 +14,13 @@ Installation
 * Place the zip file in the plugin directory of your TeamCity installation (check TeamCity documentation for details)
 * Start your TeamCity server
 * Configure and enjoy!
+
+
+Configuration
+---
+An image says more than words:
+
+![Configuration](configuration_screenshot.jpeg)
 
 
 Notes about configuration
