@@ -3,10 +3,10 @@
                  xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
     <info>
         <name>tsqlt.runner</name>
-        <display-name>TeamCity runner for the tSQLt testing framework</display-name>
-        <version>0.1 Alpha</version> <!-- will be replaced from script -->
+        <display-name>TeamCity test runner for the tSQLt testing framework</display-name>
+        <version>1.0</version>
         <vendor>
-            <name>Cristian Prieto</name>  <!-- will be replaced from script -->
+            <name>Cristian Prieto</name>
             <url>http://github.com/cprieto/tsqlt-teamcity</url> <!-- will be replaced from script -->
         </vendor>
     </info>
