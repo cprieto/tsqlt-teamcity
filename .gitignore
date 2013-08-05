@@ -1,6 +1,8 @@
 *~
 *.swp
 *.iws
+*.zip
+Thumbs.db
 workspace.xml
 task.xml
 dictionaries/
