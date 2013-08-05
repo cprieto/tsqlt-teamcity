@@ -42,7 +42,7 @@
             <label for="tsqlt.user_domain">User name: <l:star/></label>
         </th>
         <td>
-            <props:textProperty name="tsqlt.user_domain" className="longField" />
+            <props:textProperty name="tsqlt.user_domain" className="longField" disabled="${propertiesBean.properties['tsqlt.windows_auth'] == 'true'}" />
             <span class="error" id="error_tsqlt.user_domain"></span>
             <span class="smallNote">User for database authentication. You can specify an optional domain using the syntax domain\user</span>
         </td>
@@ -52,8 +52,21 @@
             <label for="tsqlt.password">Password: <l:star/></label>
         </th>
         <td>
-            <props:passwordProperty name="tsqlt.password" className="longField"/>
+            <props:passwordProperty name="tsqlt.password" className="longField" disabled="${propertiesBean.properties['tsqlt.windows_auth'] == 'true'}" />
             <span class="error" id="error_tsqlt.password"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label for="tsqlt.windows_auth">Use Windows SSO: </label>
+        </th>
+        <td>
+            <c:set var="winAuth_onclick">
+                $('tsqlt.user_domain').disabled = this.checked ? 'disabled' : '';
+                $('tsqlt.password').disabled = this.checked ? 'disabled' : '';
+            </c:set>
+            <props:checkboxProperty name="tsqlt.windows_auth" onclick="${winAuth_onclick}" />
+            <span class="smallNote">Windows SSO will work only in Windows Agents running in a machine joined the Windows Domain</span>
         </td>
     </tr>
 </l:settingsGroup>
