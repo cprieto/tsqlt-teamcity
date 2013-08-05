@@ -1,10 +1,14 @@
 package org.tsqlt.runner.server;
 
 import jetbrains.buildServer.log.Loggers;
+import jetbrains.buildServer.requirements.Requirement;
+import jetbrains.buildServer.requirements.RequirementType;
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.serverSide.RunType;
 import jetbrains.buildServer.serverSide.RunTypeRegistry;
+import org.jetbrains.annotations.NotNull;
 import org.tsqlt.runner.common.PluginConstants;
+import org.tsqlt.runner.common.PropertyNames;
 
 import java.util.List;
 import java.util.Map;
@@ -49,5 +53,24 @@ public class TSQLTRunType extends RunType {
     @Override
     public Map<String, String> getDefaultRunnerProperties() {
         return null;
+    }
+
+    private boolean needWindowsAuth(@NotNull Map<String, String> properties) {
+        if (properties.containsKey(PropertyNames.WINDOWS_AUTH) == false)
+            return false;
+
+        boolean needWinAuth = Boolean.parseBoolean(properties.get(PropertyNames.WINDOWS_AUTH));
+        return needWinAuth;
+    }
+
+    @NotNull
+    @Override
+    public List<Requirement> getRunnerSpecificRequirements(@NotNull Map<String, String> runParameters) {
+        List<Requirement> requirements =  super.getRunnerSpecificRequirements(runParameters);
+
+        if (needWindowsAuth(runParameters))
+            requirements.add(new Requirement("teamcity.agent.jvm.os.name", "Windows", RequirementType.CONTAINS));
+
+        return requirements;
     }
 }

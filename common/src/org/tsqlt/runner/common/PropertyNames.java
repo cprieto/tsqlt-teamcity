@@ -7,4 +7,5 @@ public interface PropertyNames {
     String DATABASE = "tsqlt.database";
     String USER_PASSWORD = "tsqlt.password";
     String OPTIONS = "tsqlt.options";
+    String WINDOWS_AUTH = "tsqlt.windows_auth";
 }
