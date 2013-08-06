@@ -10,6 +10,11 @@ public class DomainUserValidator implements Validator {
     @Override
     public InvalidProperty hasErrors(@NotNull Map<String, String> properties) {
         String user = properties.get(PropertyNames.USER_DOMAIN);
+        boolean useWinAuth = properties.containsKey(PropertyNames.WINDOWS_AUTH)
+                ? Boolean.getBoolean(properties.get(PropertyNames.WINDOWS_AUTH)) : false;
+
+        if (useWinAuth) return null;
+
         if (user == null || user.trim().isEmpty())
             return new InvalidProperty(PropertyNames.USER_DOMAIN,
                     "You need to specify a user or domain\\user");

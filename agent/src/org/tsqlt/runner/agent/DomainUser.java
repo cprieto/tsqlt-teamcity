@@ -7,17 +7,29 @@ import org.tsqlt.runner.common.PropertyNames;
 import java.util.Map;
 
 public class DomainUser {
-    private final String user;
-    private final String domain;
+    private String user;
+    private String domain;
+    private boolean useNtlm = false;
 
     public DomainUser(@NotNull String input) {
-        Loggers.AGENT.info(String.format("[tSQLt Agent] %s", input));
         if (input.contains("\\")) {
             String[] parsed = input.split("\\\\", 2);
             user = parsed[1];
             domain = parsed[0];
         } else {
             user = input;
+            domain = null;
+        }
+    }
+
+    public boolean getUseNtlm() {
+        return useNtlm;
+    }
+
+    public void setUseNtlm(boolean useNtlm) {
+        this.useNtlm = useNtlm;
+        if (useNtlm) {
+            user = null;
             domain = null;
         }
     }
@@ -40,6 +52,12 @@ public class DomainUser {
     }
 
     public static DomainUser create(Map<String, String> properties){
-        return new DomainUser(properties.get(PropertyNames.USER_DOMAIN));
+        DomainUser domainUser = new DomainUser(properties.get(PropertyNames.USER_DOMAIN));
+        boolean useWinAuth = properties.containsKey(PropertyNames.WINDOWS_AUTH)
+                ? Boolean.getBoolean(PropertyNames.WINDOWS_AUTH) : false;
+        if (useWinAuth)
+            domainUser.setUseNtlm(useWinAuth);
+
+        return domainUser;
     }
 }

@@ -7,6 +7,14 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="net.sourceforge.jtds:jtds:1.2.7" />
           <element id="artifact" artifact-name="tsqlt-common:jar" />
+          <element id="directory" name="native">
+            <element id="directory" name="x86">
+              <element id="file-copy" path="$PROJECT_DIR$/lib/native/x86/ntlmauth.dll" />
+            </element>
+            <element id="directory" name="x64">
+              <element id="file-copy" path="$PROJECT_DIR$/lib/native/x64/ntlmauth.dll" />
+            </element>
+          </element>
         </element>
         <element id="archive" name="agent.jar">
           <element id="module-output" name="agent" />
