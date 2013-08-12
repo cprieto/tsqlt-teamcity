@@ -1,10 +1,13 @@
 <component name="libraryTable">
   <library name="TeamCity Spring libs">
     <CLASSES>
-      <root url="file://C:/TeamCity/webapps/ROOT/WEB-INF/lib" />
+      <root url="file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
-    <jarDirectory url="file://C:/TeamCity/webapps/ROOT/WEB-INF/lib" recursive="false" />
+    <SOURCES>
+      <root url="file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib" />
+    </SOURCES>
+    <jarDirectory url="file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib" recursive="false" />
+    <jarDirectory url="file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib" recursive="false" type="SOURCES" />
   </library>
 </component>
