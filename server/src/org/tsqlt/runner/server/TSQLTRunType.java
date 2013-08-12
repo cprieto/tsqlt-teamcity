@@ -12,6 +12,7 @@ import org.tsqlt.runner.common.PropertyNames;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 public class TSQLTRunType extends RunType {
     private final PropertiesProcessor propertiesProcessor;
@@ -66,7 +67,7 @@ public class TSQLTRunType extends RunType {
     @NotNull
     @Override
     public List<Requirement> getRunnerSpecificRequirements(@NotNull Map<String, String> runParameters) {
-        List<Requirement> requirements =  super.getRunnerSpecificRequirements(runParameters);
+        List<Requirement> requirements =  new Vector<Requirement>();
 
         if (needWindowsAuth(runParameters))
             requirements.add(new Requirement("teamcity.agent.jvm.os.name", "Windows", RequirementType.CONTAINS));

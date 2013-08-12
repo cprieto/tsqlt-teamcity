@@ -52,9 +52,12 @@ public class DomainUser {
     }
 
     public static DomainUser create(Map<String, String> properties){
-        DomainUser domainUser = new DomainUser(properties.get(PropertyNames.USER_DOMAIN));
+        String domainAndUser = properties.containsKey(PropertyNames.USER_DOMAIN)
+                ? properties.get(PropertyNames.USER_DOMAIN) : "";
+
+        DomainUser domainUser = new DomainUser(domainAndUser);
         boolean useWinAuth = properties.containsKey(PropertyNames.WINDOWS_AUTH)
-                ? Boolean.getBoolean(PropertyNames.WINDOWS_AUTH) : false;
+                ? Boolean.parseBoolean(properties.get(PropertyNames.WINDOWS_AUTH)) : false;
         if (useWinAuth)
             domainUser.setUseNtlm(useWinAuth);
 

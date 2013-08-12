@@ -64,6 +64,11 @@
             <c:set var="winAuth_onclick">
                 $('tsqlt.user_domain').disabled = this.checked ? 'disabled' : '';
                 $('tsqlt.password').disabled = this.checked ? 'disabled' : '';
+
+                if (this.checked) {
+                    $('tsqlt.user_domain').value = '';
+                    $('tsqlt.password').value = '';
+                }
             </c:set>
             <props:checkboxProperty name="tsqlt.windows_auth" onclick="${winAuth_onclick}" />
             <span class="smallNote">Windows SSO will work only in Windows Agents running in a machine joined the Windows Domain</span>

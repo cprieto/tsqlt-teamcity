@@ -68,4 +68,14 @@ public class DomainUserTests {
 
         assertNotNull(sut);
     }
+
+    @Test
+    public void testItCanBeCreatedFromPropertiesWithUseWindowsAuth() {
+        Map<String, String> properties = new HashMap<String, String>() {{
+            put(PropertyNames.WINDOWS_AUTH, "true");
+        }};
+        DomainUser sut = DomainUser.create(properties);
+
+        assertTrue(sut.getUseNtlm());
+    }
 }

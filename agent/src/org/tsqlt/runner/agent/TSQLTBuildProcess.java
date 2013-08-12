@@ -1,5 +1,6 @@
 package org.tsqlt.runner.agent;
 
+import jetbrains.buildServer.agent.BuildAgentConfiguration;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import org.jetbrains.annotations.NotNull;
@@ -15,12 +16,17 @@ import java.util.concurrent.ExecutorService;
 public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
     private final BuildProgressLogger logger;
     private final ConnectionBuilder connectionBuilder;
+    private final BuildAgentConfiguration configuration;
 
-    protected TSQLTBuildProcess(@NotNull ExecutorService executor, @NotNull BuildProgressLogger logger, @NotNull ConnectionBuilder connectionBuilder) {
+    protected TSQLTBuildProcess(@NotNull ExecutorService executor,
+                                @NotNull BuildProgressLogger logger,
+                                @NotNull BuildAgentConfiguration configuration,
+                                @NotNull ConnectionBuilder connectionBuilder) {
         super(executor);
 
         this.logger = logger;
         this.connectionBuilder = connectionBuilder;
+        this.configuration = configuration;
     }
 
     @Override
@@ -37,7 +43,7 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
     }
 
     private void execute() throws SQLException, ClassNotFoundException {
-        Connection connection = connectionBuilder.getConnection();
+        Connection connection = connectionBuilder.getConnection(configuration);
 
         runAllTests(connection);
 

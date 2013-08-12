@@ -12,7 +12,7 @@ public class ServerInstanceTests {
     @Test
     public void testItCanParseServerAndInstance(){
         final String input = "server\\instance";
-        ServerInstance sut = new ServerInstance(input);
+        ServerInstance sut = new ServerInstanceImpl(input);
 
         assertEquals(sut.getServer(), "server");
         assertEquals(sut.getInstance(), "instance");
@@ -20,7 +20,7 @@ public class ServerInstanceTests {
 
     @Test
     public void testItCanParseWhenOnlyServerIsDefined(){
-        ServerInstance sut = new ServerInstance("server");
+        ServerInstance sut = new ServerInstanceImpl("server");
 
         assertEquals(sut.getServer(), "server");
         assertNull(sut.getInstance());
@@ -29,7 +29,7 @@ public class ServerInstanceTests {
     @Test
     public void testItWillReturnHasInstanceWhenInstanceIsPresent(){
         final String input = "server\\instance";
-        ServerInstance sut = new ServerInstance(input);
+        ServerInstance sut = new ServerInstanceImpl(input);
 
         assertEquals(sut.getInstance(), "instance");
         assertTrue(sut.hasInstance());
@@ -38,12 +38,12 @@ public class ServerInstanceTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     @SuppressWarnings({"UnusedDeclaration", "ConstantConditions"})
     public void testItShouldThrowIfInputIsNull(){
-        ServerInstance sut = new ServerInstance(null);
+        ServerInstance sut = new ServerInstanceImpl(null);
     }
 
     @Test
     public void testItShouldReturnNoInstanceIfOnlyServer(){
-        ServerInstance sut = new ServerInstance("server");
+        ServerInstance sut = new ServerInstanceImpl("server");
 
         assertNull(sut.getInstance());
         assertFalse(sut.hasInstance());
@@ -51,14 +51,14 @@ public class ServerInstanceTests {
 
     @Test
     public void testItCanReturnToStringWithOnlyServer(){
-        ServerInstance sut = new ServerInstance("server");
+        ServerInstance sut = new ServerInstanceImpl("server");
 
         assertEquals(sut.toString(), "server");
     }
 
     @Test
     public void testItCanReturnToStringWithServerAndInstance(){
-        ServerInstance sut = new ServerInstance("server\\instance");
+        ServerInstance sut = new ServerInstanceImpl("server\\instance");
 
         assertEquals(sut.toString(), "server\\instance");
     }
@@ -69,14 +69,14 @@ public class ServerInstanceTests {
             put(PropertyNames.SERVER_INSTANCE, "user");
         }};
 
-        ServerInstance sut = ServerInstance.create(properties);
+        ServerInstance sut = ServerInstanceImpl.create(properties);
         assertNotNull(sut);
     }
 
     @Test
     public void testItWillReturnDefaultPortIfNotSpecified(){
         final String input = "server";
-        ServerInstance sut = new ServerInstance(input);
+        ServerInstance sut = new ServerInstanceImpl(input);
 
         assertEquals(sut.getPort(), 1433);
     }
@@ -84,7 +84,7 @@ public class ServerInstanceTests {
     @Test
     public void testItWillReturnSpecifiedPort(){
         final String input = "server:1211\\blah";
-        ServerInstance sut = new ServerInstance(input);
+        ServerInstance sut = new ServerInstanceImpl(input);
 
         assertEquals(sut.getPort(), 1211);
         assertEquals(sut.getServer(), "server");
@@ -93,7 +93,7 @@ public class ServerInstanceTests {
     @Test
     public void testItCanTransformLocalAddress(){
         final String input = "(local)";
-        ServerInstance sut = new ServerInstance(input);
+        ServerInstance sut = new ServerInstanceImpl(input);
 
         assertEquals(sut.getServer(), "127.0.0.1");
     }
@@ -101,7 +101,7 @@ public class ServerInstanceTests {
     @Test
     public void testItCanTransformDotAddress(){
         final String input = ".\\SQLEXPRESS";
-        ServerInstance sut = new ServerInstance(input);
+        ServerInstance sut = new ServerInstanceImpl(input);
 
         assertEquals(sut.getServer(), "127.0.0.1");
         assertEquals(sut.getInstance(), "SQLEXPRESS");
