@@ -6,13 +6,11 @@ import org.tsqlt.runner.common.PropertyNames;
 
 import java.util.Map;
 
-public class DomainUserValidator implements Validator {
+public class DomainUserValidator extends CredentialValidator implements Validator {
     @Override
     public InvalidProperty hasErrors(@NotNull Map<String, String> properties) {
-        boolean useWinAuth = properties.containsKey(PropertyNames.WINDOWS_AUTH)
-                ? Boolean.parseBoolean(properties.get(PropertyNames.WINDOWS_AUTH)) : false;
 
-        if (useWinAuth) return null;
+        if (needsWindowsAuthentication(properties)) return null;
 
         String user = properties.get(PropertyNames.USER_DOMAIN);
         if (user == null || user.trim().isEmpty())
@@ -26,3 +24,4 @@ public class DomainUserValidator implements Validator {
         return null;
     }
 }
+
