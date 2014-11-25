@@ -38,7 +38,7 @@ public class SqlServerConnectionBuilder implements ConnectionBuilder {
     @NotNull
     @Override
     public Connection getConnection(@NotNull BuildAgentConfiguration configuration) throws SQLException, ClassNotFoundException {
-        Loggers.AGENT.debug(String.format("[tSQLt Agent] connection string is %s", builder.toString()));
+        // Loggers.AGENT.debug(String.format("[tSQLt Agent] connection string is %s", builder.toString()));
 
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
 
@@ -62,9 +62,9 @@ public class SqlServerConnectionBuilder implements ConnectionBuilder {
             fieldSysPaths.setAccessible(true);
             fieldSysPaths.set(null, null);
         } catch (NoSuchFieldException e) {
-            Loggers.AGENT.error(e);
+            // Loggers.AGENT.error(e);
         } catch (IllegalAccessException e) {
-            Loggers.AGENT.error(e);
+            // Loggers.AGENT.error(e);
         }
     }
 

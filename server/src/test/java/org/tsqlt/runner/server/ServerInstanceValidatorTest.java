@@ -7,9 +7,9 @@ import org.tsqlt.runner.common.PropertyNames;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 public class ServerInstanceValidatorTest {
     private final Validator sut = new ServerInstanceValidator();

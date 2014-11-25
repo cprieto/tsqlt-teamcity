@@ -21,6 +21,13 @@ project(':agent') {
 
 		compile 'org.jetbrains:annotations:13.+'
 		compile 'log4j:log4j:1.2.+'
+
+		testCompile 'org.testng:testng:+'
+		testCompile 'org.mockito:mockito-core:1.+'
+	}
+
+	test {
+		useTestNG()
 	}
 }
 
@@ -33,5 +40,12 @@ project(':server') {
 
 		compile 'org.jetbrains:annotations:13.+'
 		compile 'log4j:log4j:1.2.+'
+
+		testCompile 'org.testng:testng:+'
+		testCompile 'commons-collections:commons-collections:3.2.+'
+	}
+
+	test {
+		useTestNG()
 	}
 }

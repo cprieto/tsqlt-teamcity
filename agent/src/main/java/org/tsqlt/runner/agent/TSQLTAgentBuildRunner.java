@@ -12,7 +12,7 @@ public class TSQLTAgentBuildRunner implements AgentBuildRunner {
     @Override
     public BuildProcess createBuildProcess(@NotNull AgentRunningBuild agentRunningBuild,
                                            @NotNull BuildRunnerContext buildRunnerContext) throws RunBuildException {
-        Loggers.AGENT.debug("Requesting process");
+        // Loggers.AGENT.debug("Requesting process");
 
         ConnectionBuilder connectionBuilder = new SqlServerConnectionBuilder(buildRunnerContext.getRunnerParameters());
         return new TSQLTBuildProcess(
@@ -25,7 +25,7 @@ public class TSQLTAgentBuildRunner implements AgentBuildRunner {
     @NotNull
     @Override
     public AgentBuildRunnerInfo getRunnerInfo() {
-        Loggers.AGENT.debug("Requesting info");
+        // Loggers.AGENT.debug("Requesting info");
         return new TSQLTAgentBuildRunnerInfo();
     }
 }

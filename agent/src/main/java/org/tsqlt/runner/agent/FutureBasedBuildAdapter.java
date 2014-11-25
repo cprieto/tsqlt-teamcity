@@ -33,7 +33,7 @@ public abstract class FutureBasedBuildAdapter extends BuildProcessAdapter implem
 
     @Override
     public void interrupt() {
-        Loggers.AGENT.warn("Attempting to interrupt!");
+        // Loggers.AGENT.warn("Attempting to interrupt!");
         status.cancel(true);
     }
 
@@ -47,7 +47,7 @@ public abstract class FutureBasedBuildAdapter extends BuildProcessAdapter implem
         } catch (final ExecutionException e) {
             throw new RunBuildException(e);
         } catch (final CancellationException e) {
-            Loggers.AGENT.warn("Process was interrupted!");
+            // Loggers.AGENT.warn("Process was interrupted!");
             return BuildFinishedStatus.INTERRUPTED;
         }
     }
