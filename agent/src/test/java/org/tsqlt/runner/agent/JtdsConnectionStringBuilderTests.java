@@ -66,19 +66,6 @@ public class JtdsConnectionStringBuilderTests {
         assertEquals(sut.toString(), "jdbc:jtds:sqlserver://server:1433/database;option1=value1;option2=value2");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    @SuppressWarnings({"UnusedDeclaration", "ConstantConditions"})
-    public void testItShouldThrowBecauseServerCannotBeNull() {
-        sut = new JtdsConnectionStringBuilder(null, "database");
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    @SuppressWarnings({"UnusedDeclaration", "ConstantConditions"})
-    public void testItShouldThrowBecauseDatabaseCannotBeNull() {
-        server = mock(ServerInstance.class);
-        sut = new JtdsConnectionStringBuilder(server, null);
-    }
-
     @Test
     public void testItCanBuildConnectionStringWhenUsingWindowsAuth(){
         server = mock(ServerInstance.class, new ServerAnswer());

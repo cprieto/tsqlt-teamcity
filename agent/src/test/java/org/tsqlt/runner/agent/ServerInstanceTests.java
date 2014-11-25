@@ -35,12 +35,6 @@ public class ServerInstanceTests {
         assertTrue(sut.hasInstance());
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    @SuppressWarnings({"UnusedDeclaration", "ConstantConditions"})
-    public void testItShouldThrowIfInputIsNull(){
-        ServerInstance sut = new ServerInstanceImpl(null);
-    }
-
     @Test
     public void testItShouldReturnNoInstanceIfOnlyServer(){
         ServerInstance sut = new ServerInstanceImpl("server");

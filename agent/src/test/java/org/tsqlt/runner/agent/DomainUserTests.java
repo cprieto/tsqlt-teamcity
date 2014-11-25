@@ -17,12 +17,6 @@ public class DomainUserTests {
         assertEquals(sut.getUser(), "user");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    @SuppressWarnings({"UnusedDeclaration", "ConstantConditions"})
-    public void testItThrowsIfInputIsNull(){
-        DomainUser sut = new DomainUser(null);
-    }
-
     @Test
     public void testItCanParseUserDomain(){
         DomainUser sut = new DomainUser("domain\\user");
