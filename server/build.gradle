@@ -1,0 +1,5 @@
+task assemblePlugin(type: Copy, dependsOn: jar) {
+	from project.configurations.plugin
+	from jar.outputs.files
+	into "${project.distsDir}/plugin"
+}

@@ -10,6 +10,14 @@ allprojects {
 
 		flatDir name: 'TeamCity', dir: TeamCity.replace("~", System.getProperty("user.home"))
 	}
+
+	configurations {
+		plugin {
+			description = "Dependencies included with the plugin"
+		}
+
+		compile.extendsFrom(plugin)
+	}
 }
 
 project(':agent') {
@@ -35,7 +43,7 @@ project(':agent') {
 
 project(':server') {
 	dependencies {
-		compile project(':common')
+		plugin project(':common')
 
 		compile name: 'common-api'
 		compile name: 'server-api'
