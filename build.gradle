@@ -1,0 +1,37 @@
+allprojects {
+	apply plugin: 'java'
+
+	sourceCompatibility = 1.6
+	targetCompatibility = 1.6
+
+	repositories {
+		mavenCentral()
+		jcenter()
+
+		flatDir name: 'TeamCity', dir: TeamCity.replace("~", System.getProperty("user.home"))
+	}
+}
+
+project(':agent') {
+	dependencies {
+		compile project(':common')
+
+		compile name: 'common-api'
+		compile name: 'agent-api'
+
+		compile 'org.jetbrains:annotations:13.+'
+		compile 'log4j:log4j:1.2.+'
+	}
+}
+
+project(':server') {
+	dependencies {
+		compile project(':common')
+
+		compile name: 'common-api'
+		compile name: 'server-api'
+
+		compile 'org.jetbrains:annotations:13.+'
+		compile 'log4j:log4j:1.2.+'
+	}
+}
