@@ -24,6 +24,8 @@ project(':agent') {
 
 		testCompile 'org.testng:testng:+'
 		testCompile 'org.mockito:mockito-core:1.+'
+
+		testRuntime 'net.sourceforge.jtds:jtds:1.2.7'
 	}
 
 	test {
