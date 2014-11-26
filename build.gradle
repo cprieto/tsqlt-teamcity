@@ -20,6 +20,12 @@ allprojects {
 	}
 }
 
+task assemblePlugin(type: Zip, dependsOn: ':server:assemblePlugin') {
+	into ('server') {
+		from tasks.getByPath(':server:assemblePlugin').outputs.files
+	}
+}
+
 project(':agent') {
 	dependencies {
 		compile project(':common')
