@@ -65,6 +65,14 @@ Easy, just open IntelliJ, select "Import project" and point to the project direc
 
 
 
+What if I want to use Eclipse?
+---
+Hey, first, don't be ashamed, we all have issues. The procedure is very similar to IntelliJ. Open Eclipse and in File select Import, chose "Gradle project", and then import the model. Done.
+
+You will need the Gradle plugin for Eclipse btw.
+
+
+
 What if I want to contribute
 ---
 Hey, this is Github, the equivalent of Sparta in the coding world, just clone and send me a pull request, I am a nice person, I swear!
