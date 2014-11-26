@@ -3,4 +3,7 @@ task assemblePlugin(type: Zip, dependsOn: jar) {
 	into ('lib') {
 		from jar.outputs.files
 	}
+	from ('.') {
+		include 'teamcity-plugin.xml'
+	}
 }
