@@ -26,14 +26,19 @@ allprojects {
 	}
 }
 
-task assemblePlugin(type: Zip, dependsOn: ':server:assemblePlugin') {
+task assemblePlugin(type: Zip) {
 	into ('server') {
 		from tasks.getByPath(':server:assemblePlugin').outputs.files
 	}
 	from ('.') {
 		include 'teamcity-plugin.xml'
 	}
+	into ('agent') {
+		from tasks.getByPath(':agent:assemblePlugin').outputs.files
+	}
 }
+
+assemblePlugin.dependsOn([':server:assemblePlugin', ':agent:assemblePlugin'])
 
 project(':agent') {
 	dependencies {
