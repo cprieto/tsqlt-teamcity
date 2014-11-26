@@ -7,4 +7,7 @@ task assemblePlugin(type: Zip, dependsOn: jar) {
 	from ('.') {
 		include 'teamcity-plugin.xml'
 	}
+	into ('lib/native') {
+		from ('native')
+	}
 }
