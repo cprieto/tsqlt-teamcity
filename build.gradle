@@ -42,7 +42,8 @@ assemblePlugin.dependsOn([':server:assemblePlugin', ':agent:assemblePlugin'])
 
 project(':agent') {
 	dependencies {
-		compile project(':common')
+		plugin project(':common')
+		plugin 'net.sourceforge.jtds:jtds:1.2.7'
 
 		compile name: 'common-api'
 		compile name: 'agent-api'
@@ -52,8 +53,6 @@ project(':agent') {
 
 		testCompile 'org.testng:testng:+'
 		testCompile 'org.mockito:mockito-core:1.+'
-
-		testRuntime 'net.sourceforge.jtds:jtds:1.2.7'
 	}
 
 	test {
