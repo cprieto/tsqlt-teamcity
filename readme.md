@@ -34,7 +34,7 @@ Notes about configuration
 
 Compiling the project
 ---
-I updated the project to use the amazing ![Gradle](http://gradle.org) so it would be easy to build and do nice things (**yay!**). First, make sure of the following things:
+I updated the project to use the amazing [Gradle](http://gradle.org) so it would be easy to build and do nice things (**yay!**). First, make sure of the following things:
 
 * You have Java installed, JRE 6 is needed for TeamCity plugins (duh!) 
 * You have a compatible JDK installed, TeamCity needs JDK 6
