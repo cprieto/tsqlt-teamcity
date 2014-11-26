@@ -1,0 +1,6 @@
+task assemblePlugin(type: Zip, dependsOn: jar) {
+	archiveName = "${rootProject.name}-${version}.zip"
+	into ('lib') {
+		from jar.outputs.files
+	}
+}
