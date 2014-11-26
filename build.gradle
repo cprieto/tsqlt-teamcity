@@ -4,6 +4,8 @@ allprojects {
 	sourceCompatibility = 1.6
 	targetCompatibility = 1.6
 
+	version = "2.0"
+
 	repositories {
 		mavenCentral()
 		jcenter()
@@ -17,6 +19,10 @@ allprojects {
 		}
 
 		compile.extendsFrom(plugin)
+	}
+
+	jar {
+		appendix = "${rootProject.name}"
 	}
 }
 
