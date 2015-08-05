@@ -4,7 +4,10 @@ jdk:
 install:
   - wget http://download.jetbrains.com/teamcity/TeamCity-7.0.tar.gz
   - tar -zxvf TeamCity-7.0.tar.gz
-  - ls
+
+env:
+  - TeamCityDev=$TRAVIS_BUILD_DIR/TeamCity/devPackage
 
 # Now we need to make sure it builds, passing the path as property
+script: ./gradlew test
 

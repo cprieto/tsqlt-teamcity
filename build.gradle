@@ -10,7 +10,7 @@ allprojects {
 		mavenCentral()
 		jcenter()
 
-		flatDir name: 'TeamCity', dir: TeamCity.replace("~", System.getProperty("user.home"))
+		flatDir name: 'TeamCityDev', dir: hasProperty('TeamCityDev') ? TeamCity : System.getenv('TeamCityDev')
 	}
 
 	configurations {
