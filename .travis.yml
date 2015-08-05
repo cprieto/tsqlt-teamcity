@@ -9,5 +9,5 @@ env:
   - TeamCityDev=$TRAVIS_BUILD_DIR/TeamCity/devPackage
 
 # Now we need to make sure it builds, passing the path as property
-script: ./gradlew test
+script: ./gradlew assemblePlugin
 
