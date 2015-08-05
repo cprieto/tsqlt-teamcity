@@ -3,6 +3,8 @@ jdk:
   - openjdk6
 install:
   - wget http://download.jetbrains.com/teamcity/TeamCity-7.0.tar.gz
-  - tar -zxvf TeamCity-7.0.tar.gz -C teamcity
+  - tar -zxvf TeamCity-7.0.tar.gz
   - ls
+
+# Now we need to make sure it builds, passing the path as property
 
