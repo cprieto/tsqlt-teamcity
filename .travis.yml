@@ -3,4 +3,6 @@ jdk:
   - openjdk6
 install:
   - wget http://download.jetbrains.com/teamcity/TeamCity-7.0.tar.gz
+  - tar -zxvf TeamCity-7.0.tar.gz -C teamcity
+  - ls
 
