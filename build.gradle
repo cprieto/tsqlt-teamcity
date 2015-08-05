@@ -26,7 +26,7 @@ allprojects {
 	}
 }
 
-task assemblePlugin(type: Zip) {
+task assemblePlugin(type: Zip, dependsOn: test) {
 	into ('server') {
 		from tasks.getByPath(':server:assemblePlugin').outputs.files
 	}
@@ -51,7 +51,7 @@ project(':agent') {
 		compile 'org.jetbrains:annotations:13.+'
 		compile 'log4j:log4j:1.2.+'
 
-		testCompile 'org.testng:testng:+'
+		testCompile 'org.testng:testng:6.8.21'
 		testCompile 'org.mockito:mockito-core:1.+'
 	}
 
@@ -70,7 +70,7 @@ project(':server') {
 		compile 'org.jetbrains:annotations:13.+'
 		compile 'log4j:log4j:1.2.+'
 
-		testCompile 'org.testng:testng:+'
+		testCompile 'org.testng:testng:6.8.21'
 		testCompile 'commons-collections:commons-collections:3.2.+'
 	}
 
