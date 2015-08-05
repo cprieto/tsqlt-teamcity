@@ -1,5 +1,6 @@
 TeamCity runner for tSQLt
 =====
+[![Build Status](https://travis-ci.org/cprieto/tsqlt-teamcity.svg?branch=master)](https://travis-ci.org/cprieto/tsqlt-teamcity)
 
 [tSQLt](http://tsqlt.org) is a Unit Test Framework for TSQL (the SQL dialect in SQL Server). 
 
@@ -41,7 +42,7 @@ I updated the project to use the amazing [Gradle](http://gradle.org) so it would
 * You have a TeamCity installation in your machine (hey, after all, you are developing a TeamCity plugin)
 * Hoorah! you are ready!
 
-In the project directory you will find a file named ``gradle.properties``` just open it and place the directory where your TeamCity development packages are installed, usually is _the directory you installed TeamCity_/devPackages
+In the project directory you will find a file named ``gradle.properties``` just open it and place the directory where your TeamCity development packages are installed, usually is _the directory you installed TeamCity_/devPackages. Alternatively, set the environment variable TeamCityDev to that directory.
 
 No worries about dependencies, if everything is alright, Gradle will bootstrap and download all the dependencies from Maven (oh yes, you need an internet connection, of course!).
 
