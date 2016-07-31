@@ -1,1 +1,1 @@
-include 'common', 'agent', 'server'
+include 'common', 'server', 'agent'
