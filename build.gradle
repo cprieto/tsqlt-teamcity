@@ -1,85 +1,81 @@
-allprojects {
-	apply plugin: 'java'
-	apply plugin: 'idea'
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.rodm:gradle-teamcity-plugin:0.9.1"
+    }
+}
 
-	sourceCompatibility = 1.6
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.6
     targetCompatibility = 1.6
-
-	version = "2.0"
-
-	repositories {
-		mavenCentral()
-		jcenter()
-
-		flatDir name: 'TeamCityDev', dir: hasProperty('TeamCityDev') ? TeamCity : System.getenv('TeamCityDev')
-	}
-
-	configurations {
-		plugin {
-			description = "Dependencies included with the plugin"
-		}
-
-		compile.extendsFrom(plugin)
-	}
-
-	jar {
-		appendix = "${rootProject.name}"
-	}
 }
 
-task assemblePlugin(type: Zip, dependsOn: test) {
-	into ('server') {
-		from tasks.getByPath(':server:assemblePlugin').outputs.files
-	}
-	from ('.') {
-		include 'teamcity-plugin.xml'
-	}
-	into ('agent') {
-		from tasks.getByPath(':agent:assemblePlugin').outputs.files
-	}
+project(':common') {
 }
-
-assemblePlugin.dependsOn([':server:assemblePlugin', ':agent:assemblePlugin'])
 
 project(':agent') {
-	dependencies {
-		plugin project(':common')
-		plugin 'net.sourceforge.jtds:jtds:1.2.7'
+    apply plugin: 'com.github.rodm.teamcity-agent'
 
-		compile name: 'common-api'
-		compile name: 'agent-api'
+    dependencies {
+        compile project(':common')
+        agent 'net.sourceforge.jtds:jtds:1.2.7'
 
-		compile 'org.jetbrains:annotations:13.+'
-		compile 'log4j:log4j:1.2.+'
+        testCompile 'org.testng:testng:6.8.21'
+        testCompile 'org.mockito:mockito-core:1.+'
+    }    
 
-		testCompile 'org.testng:testng:6.8.21'
-		testCompile 'org.mockito:mockito-core:1.+'
-	}
+    test {
+        useTestNG()
+    }
 
-	test {
-		useTestNG()
-	}
+    jar {
+        appendix = "${rootProject.name}"
+    }
+
+    teamcity {
+        agent {
+            descriptor {
+                pluginDeployment {
+                    useSeparateClassloader = true
+                }
+            }
+
+            files {
+                into ('lib/native') {
+                    from ('native')
+                }
+            }
+        }
+    }
 }
 
 project(':server') {
-	dependencies {
-		plugin project(':common')
+    apply plugin: 'com.github.rodm.teamcity-server'
 
-		compile name: 'common-api'
-		compile name: 'server-api'
+    dependencies {
+        compile project(':common')
+        agent project(path: ':agent', configuration: 'plugin')
 
-		compile 'org.jetbrains:annotations:13.+'
-		compile 'log4j:log4j:1.2.+'
+        testCompile 'org.testng:testng:6.8.21'
+        testCompile 'org.mockito:mockito-core:1.+'
+    }
 
-		testCompile 'org.testng:testng:6.8.21'
-		testCompile 'commons-collections:commons-collections:3.2.+'
-	}
+    test {
+        useTestNG()
+    }
 
-	test {
-		useTestNG()
-	}
-}
+    jar {
+        appendix = "${rootProject.name}"
+    }
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '2.0'
+    teamcity {
+        descriptor = file('teamcity-plugin.xml')
+        server {
+        }
+    }
 }
