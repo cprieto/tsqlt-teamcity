@@ -1,1 +1,5 @@
-include 'common', 'server', 'agent'
+rootProject.name = 'teamcity-tsqlt'
+
+include 'common'
+include 'agent'
+include 'server'
