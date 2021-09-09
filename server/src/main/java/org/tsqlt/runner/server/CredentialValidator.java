@@ -7,8 +7,6 @@ import java.util.Map;
 
 public abstract class CredentialValidator {
     protected boolean needsWindowsAuthentication(@NotNull Map<String, String> properties) {
-        boolean useWinAuth = properties.containsKey(PropertyNames.WINDOWS_AUTH)
-                ? Boolean.parseBoolean(properties.get(PropertyNames.WINDOWS_AUTH)) : false;
-        return useWinAuth;
+        return properties.containsKey(PropertyNames.WINDOWS_AUTH) && Boolean.parseBoolean(properties.get(PropertyNames.WINDOWS_AUTH));
     }
 }

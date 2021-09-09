@@ -40,7 +40,7 @@ public class ServerInstanceImpl implements ServerInstance {
 
     @NotNull
     public static String transformLocalAddress(@NotNull String input) {
-        if (input.toLowerCase().equals("(local)") || input.trim().equals("."))
+        if (input.equalsIgnoreCase("(local)") || input.trim().equals("."))
             return "127.0.0.1";
         return input;
     }

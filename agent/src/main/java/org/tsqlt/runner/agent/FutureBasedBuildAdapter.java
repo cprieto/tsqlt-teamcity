@@ -3,7 +3,6 @@ package org.tsqlt.runner.agent;
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.BuildProcessAdapter;
-import jetbrains.buildServer.log.Loggers;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.*;

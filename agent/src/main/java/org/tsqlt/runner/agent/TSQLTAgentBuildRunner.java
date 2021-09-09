@@ -2,9 +2,10 @@ package org.tsqlt.runner.agent;
 
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.*;
-import jetbrains.buildServer.log.Loggers;
 import org.jetbrains.annotations.NotNull;
+import org.tsqlt.runner.common.PropertyNames;
 
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 public class TSQLTAgentBuildRunner implements AgentBuildRunner {
@@ -12,14 +13,16 @@ public class TSQLTAgentBuildRunner implements AgentBuildRunner {
     @Override
     public BuildProcess createBuildProcess(@NotNull AgentRunningBuild agentRunningBuild,
                                            @NotNull BuildRunnerContext buildRunnerContext) throws RunBuildException {
-        // Loggers.AGENT.debug("Requesting process");
 
-        ConnectionBuilder connectionBuilder = new SqlServerConnectionBuilder(buildRunnerContext.getRunnerParameters());
+        Map<String, String> properties = buildRunnerContext.getRunnerParameters();
+        ConnectionBuilder connectionBuilder = new SqlServerConnectionBuilder(properties);
+        RuntimeOptions runtimeOptions = new RuntimeOptions(properties.get(PropertyNames.TESTS));
         return new TSQLTBuildProcess(
                 Executors.newSingleThreadExecutor(),
                 agentRunningBuild.getBuildLogger(),
                 buildRunnerContext.getBuild().getAgentConfiguration(),
-                connectionBuilder);
+                connectionBuilder,
+                runtimeOptions);
     }
 
     @NotNull

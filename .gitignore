@@ -9,4 +9,5 @@ dictionaries/
 out/
 artifacts/
 .gradle/
+.idea/
 build/

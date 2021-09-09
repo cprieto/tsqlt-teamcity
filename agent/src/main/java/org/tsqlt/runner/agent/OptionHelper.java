@@ -23,6 +23,6 @@ public final class OptionHelper {
     }
 
     public static boolean isValid(String option) {
-        return invalidOptions.contains(option) == false;
+        return !invalidOptions.contains(option);
     }
 }

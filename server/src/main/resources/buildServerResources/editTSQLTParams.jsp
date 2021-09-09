@@ -27,6 +27,16 @@
     </tr>
     <tr>
         <th>
+            <label for="tsqlt.tests">Tests to run: </label>
+        </th>
+        <td>
+            <props:textProperty name="tsqlt.tests" className="longField" />
+            <span class="smallNote">For running specific tests. Leave empty to run all tests.</span>
+            <span class="smallNote">Enter either TestClass or TestClass.TestName</span>
+        </td>
+    </tr>
+    <tr>
+        <th>
             <label for="tsqlt.options">Additional database connection options: </label>
         </th>
         <td>

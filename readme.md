@@ -1,6 +1,6 @@
 TeamCity runner for tSQLt
 =====
-[![Build Status](https://travis-ci.org/cprieto/tsqlt-teamcity.svg?branch=master)](https://travis-ci.org/cprieto/tsqlt-teamcity)
+[![Build Status](https://app.travis-ci.com/jaroslawf-stonex/tsqlt-teamcity.svg?branch=master)](https://app.travis-ci.com/github/jaroslawf-stonex/tsqlt-teamcity)
 
 [tSQLt](http://tsqlt.org) is a Unit Test Framework for TSQL (the SQL dialect in SQL Server). 
 

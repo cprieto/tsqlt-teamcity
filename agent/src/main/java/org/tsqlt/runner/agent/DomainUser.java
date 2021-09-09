@@ -1,6 +1,5 @@
 package org.tsqlt.runner.agent;
 
-import jetbrains.buildServer.log.Loggers;
 import org.jetbrains.annotations.NotNull;
 import org.tsqlt.runner.common.PropertyNames;
 
@@ -56,8 +55,7 @@ public class DomainUser {
                 ? properties.get(PropertyNames.USER_DOMAIN) : "";
 
         DomainUser domainUser = new DomainUser(domainAndUser);
-        boolean useWinAuth = properties.containsKey(PropertyNames.WINDOWS_AUTH)
-                ? Boolean.parseBoolean(properties.get(PropertyNames.WINDOWS_AUTH)) : false;
+        boolean useWinAuth = properties.containsKey(PropertyNames.WINDOWS_AUTH) && Boolean.parseBoolean(properties.get(PropertyNames.WINDOWS_AUTH));
         if (useWinAuth)
             domainUser.setUseNtlm(useWinAuth);
 

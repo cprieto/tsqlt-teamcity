@@ -5,6 +5,7 @@ public interface PropertyNames {
     String SERVER_INSTANCE = "tsqlt.server_instance";
     String USER_DOMAIN = "tsqlt.user_domain";
     String DATABASE = "tsqlt.database";
+    String TESTS = "tsqlt.tests";
     String USER_PASSWORD = "tsqlt.password";
     String OPTIONS = "tsqlt.options";
     String WINDOWS_AUTH = "tsqlt.windows_auth";

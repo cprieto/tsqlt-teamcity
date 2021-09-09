@@ -17,16 +17,20 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
     private final BuildProgressLogger logger;
     private final ConnectionBuilder connectionBuilder;
     private final BuildAgentConfiguration configuration;
+    @NotNull
+    private final RuntimeOptions runtimeOptions;
 
     protected TSQLTBuildProcess(@NotNull ExecutorService executor,
                                 @NotNull BuildProgressLogger logger,
                                 @NotNull BuildAgentConfiguration configuration,
-                                @NotNull ConnectionBuilder connectionBuilder) {
+                                @NotNull ConnectionBuilder connectionBuilder,
+                                @NotNull RuntimeOptions runtimeOptions) {
         super(executor);
 
         this.logger = logger;
         this.connectionBuilder = connectionBuilder;
         this.configuration = configuration;
+        this.runtimeOptions = runtimeOptions;
     }
 
     @Override
@@ -44,10 +48,16 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
 
     private void execute() throws SQLException, ClassNotFoundException {
         Connection connection = connectionBuilder.getConnection(configuration);
-
+        ResultSet rows = null;
+        if(runtimeOptions.RunAllTests()) {
         runAllTests(connection);
-
-        ResultSet rows = getResults(connection);
+            rows = getResults(connection, "");
+        }
+        else
+        {
+            runTests(connection, runtimeOptions.getTestsToRun());
+            rows = getResults(connection, runtimeOptions.getTestsToRun());
+        }
 
         Map<String, List<TestCase>> results = TestCaseParser.fromResultSet(rows);
         reportResults(results);
@@ -58,8 +68,15 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
     }
 
     private void runAllTests(@NotNull Connection connection) throws SQLException {
+        this.runCommand(connection, SqlCommands.EXECUTE_ALL_TESTS);
+    }
+    private void runTests(@NotNull Connection connection, String tests) throws SQLException {
+        String command = SqlCommands.EXECUTE_TESTS_TEMPLATE.replace("{0}", tests);
+        this.runCommand(connection, command);
+    }
+    private void runCommand(@NotNull Connection connection, String command) throws SQLException {
         logger.progressStarted("Running tests");
-        PreparedStatement query = connection.prepareStatement(SqlCommands.EXECUTE_ALL_TESTS);
+        PreparedStatement query = connection.prepareStatement(command);
         try {
             query.execute();
             query.close();
@@ -73,9 +90,17 @@ public class TSQLTBuildProcess extends FutureBasedBuildAdapter {
     }
 
     @NotNull
-    private ResultSet getResults(@NotNull Connection connection) throws SQLException {
+    private ResultSet getResults(@NotNull Connection connection, String tests) throws SQLException {
         logger.progressStarted("Getting test results");
-        PreparedStatement query = connection.prepareStatement(SqlCommands.QUERY_RESULTS);
+        PreparedStatement query = null;
+        if(tests == null || tests.isEmpty()) {
+            query = connection.prepareStatement(SqlCommands.QUERY_RESULTS);
+        }
+        else
+        {
+            String command = SqlCommands.QUERY_RESULTS_TEMPLATE.replace("{0}", tests);
+            query = connection.prepareStatement(command);
+        }
         return query.executeQuery();
     }
 

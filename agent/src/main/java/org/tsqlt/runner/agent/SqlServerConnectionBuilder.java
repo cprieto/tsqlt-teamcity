@@ -1,9 +1,7 @@
 package org.tsqlt.runner.agent;
 
 import jetbrains.buildServer.agent.BuildAgentConfiguration;
-import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.util.Bitness;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.tsqlt.runner.common.PropertyNames;
 
@@ -16,7 +14,6 @@ import java.util.Map;
 import java.util.Vector;
 
 public class SqlServerConnectionBuilder implements ConnectionBuilder {
-    private final static Logger log = Logger.getLogger(ConnectionBuilder.class);
     private final JtdsConnectionStringBuilder builder;
     private final String user;
     private final String password;
@@ -38,7 +35,6 @@ public class SqlServerConnectionBuilder implements ConnectionBuilder {
     @NotNull
     @Override
     public Connection getConnection(@NotNull BuildAgentConfiguration configuration) throws SQLException, ClassNotFoundException {
-        // Loggers.AGENT.debug(String.format("[tSQLt Agent] connection string is %s", builder.toString()));
 
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
 
